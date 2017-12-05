@@ -1,5 +1,7 @@
 require 'openpay/errors/openpay_exception'
 
-class OpenpayTransactionException < OpenpayException
+module Openpay
+  class OpenpayTransactionException < OpenpayException
 
+  end
 end

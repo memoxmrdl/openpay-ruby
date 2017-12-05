@@ -1,5 +1,7 @@
 require 'open_pay_resource'
 
-class Fees < OpenPayResource
+module Openpay
+  class Fees < OpenPayResource
 
+  end
 end

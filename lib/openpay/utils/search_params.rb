@@ -1,4 +1,5 @@
 require 'ostruct'
+
 module OpenpayUtils
 
   class SearchParams < OpenStruct

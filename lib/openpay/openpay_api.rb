@@ -11,39 +11,41 @@ LOG= Logger.new(STDOUT)
 #due the nature of the information, we recommend to never use a log file when in debug
 LOG.level=Logger::FATAL
 
-class OpenpayApi
-  #API Endpoints
-  API_DEV='https://sandbox-api.openpay.mx/v1/'
-  API_PROD='https://api.openpay.mx/v1/'
+module Openpay
+  class OpenpayApi
+    #API Endpoints
+    API_DEV='https://sandbox-api.openpay.mx/v1/'
+    API_PROD='https://api.openpay.mx/v1/'
 
-  #by default testing environment is used
-  def initialize(merchant_id, private_key, production=false, timeout=90)
-    @merchant_id=merchant_id
-    @private_key=private_key
-    @production=production
-    @timeout=timeout
-  end
-
-  def create(resource)
-    klass=OpenPayResourceFactory::create(resource, @merchant_id, @private_key, @production, @timeout)
-    klass.api_hook=self
-    klass
-  end
-
-  def OpenpayApi::base_url(production)
-    if production
-      API_PROD
-    else
-      API_DEV
+    #by default testing environment is used
+    def initialize(merchant_id, private_key, production=false, timeout=90)
+      @merchant_id=merchant_id
+      @private_key=private_key
+      @production=production
+      @timeout=timeout
     end
-  end
 
-  def env
-    if @production
-      :production
-    else
-      :test
+    def create(resource)
+      klass=OpenPayResourceFactory::create(resource, @merchant_id, @private_key, @production, @timeout)
+      klass.api_hook=self
+      klass
     end
-  end
 
+    def OpenpayApi::base_url(production)
+      if production
+        API_PROD
+      else
+        API_DEV
+      end
+    end
+
+    def env
+      if @production
+        :production
+      else
+        :test
+      end
+    end
+
+  end
 end
